@@ -21,10 +21,10 @@ int main()
 	
 	vector<vector<Point>> contour;
 	vector<Point> pts;
-	pts.push_back(Point(70, 50));
-	pts.push_back(Point(200, 50));
-	pts.push_back(Point(250, 200));
-	pts.push_back(Point(120, 200));
+	pts.push_back(Point(400, 50));
+	pts.push_back(Point(538, 50));
+	pts.push_back(Point(588, 200));
+	pts.push_back(Point(450, 200));
 	contour.push_back(pts);
 	
 	drawContours(roi, contour, 0, Scalar::all(255), -1);
@@ -33,24 +33,26 @@ int main()
 	//仿射变换矩阵
 	Mat warp_mat(2, 3, CV_32FC1);
 	//源坐标
-	srcTri[0] = Point2f(70, 50);
-	srcTri[1] = Point2f(200, 50);
-	srcTri[2] = Point2f(120, 200);
+	srcTri[0] = Point2f(400, 50);
+	srcTri[1] = Point2f(538, 50);
+	srcTri[2] = Point2f(450, 200);
 	//目标坐标
-	dstTri[0] = Point2f(70, 50);
-	dstTri[1] = Point2f(180, 50);
-	dstTri[2] = Point2f(70, 180);
+	dstTri[0] = Point2f(400, 50);
+	dstTri[1] = Point2f(538, 50);
+	dstTri[2] = Point2f(400, 200);
 	//求得仿射变换，即仿射变换的2*3数组
 	warp_mat = getAffineTransform(srcTri, dstTri);
 	//仿射变换
 	warpAffine(dst, drcimage, warp_mat, drcimage.size(),INTER_LINEAR);
 
-	Rect rect(70, 50, 110, 130);
+	Rect rect(400, 50, 138, 150);
 	Mat drcimage_roi = drcimage(rect);
 	//drcimage = imread("C:/Users/SZJ/Desktop/1.jpg", 0);
+	imshow("roi", roi);
+	
 	//完成，显示图像
 	imshow("dst", dst);
-	imshow("Image", drcimage);
+	imshow("drcimage", drcimage);
 	imshow("drcimage_roi", drcimage_roi);
 	
 	waitKey(0);
