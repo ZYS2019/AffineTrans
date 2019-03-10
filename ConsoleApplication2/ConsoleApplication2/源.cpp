@@ -23,7 +23,7 @@ int main()
 */
 int main()
 {
-	Mat srcMat=imread("C:\\Users\\SZJ\\Desktop\\1.jpg",1);
+	Mat srcMat=imread("C:\\Users\\SZJ\\Desktop\\22.jpg",1);
 	Mat dst;
 	cvtColor(srcMat, dst, COLOR_BGR2HSV);
 	int weight = srcMat.cols;
@@ -38,15 +38,18 @@ int main()
 			{
 				p = p + 360;
 			}
+			int t = p / 360 * 255;
 			dst.at<Vec3b>(i, j)[0] = p / 360 * 255;
 		}
 	}
+	/*
 	for (int i = 0; i < dst.rows; ++i) {
 		for (int j = 0; j < dst.cols; ++j) {
 			Vec3b& pix = dst.at<Vec3b>(i, j); //指针或引用
 			std::swap(pix[0], pix[2]);
 		}
 	}
+	*/
 	imshow("dst", dst);
 	waitKey(0);
 	return 0;
